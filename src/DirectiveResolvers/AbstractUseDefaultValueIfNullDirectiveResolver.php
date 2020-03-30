@@ -36,7 +36,6 @@ abstract class AbstractUseDefaultValueIfNullDirectiveResolver extends AbstractSc
             $defaultValue = $resultItemDirectiveArgs['value'] ?? $this->getDefaultValue();
             if (!is_null($defaultValue)) {
                 foreach ($dataFields['direct'] as $field) {
-
                     // Get the fieldOutputKey from the cache, or calculate it
                     if (is_null($fieldOutputKeyCache[$field])) {
                         $fieldOutputKeyCache[$field] = $fieldQueryInterpreter->getFieldOutputKey($field);
