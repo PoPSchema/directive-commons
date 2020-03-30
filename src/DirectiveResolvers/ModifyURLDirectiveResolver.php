@@ -9,13 +9,13 @@ use PoP\ComponentModel\DirectiveResolvers\GlobalDirectiveResolverTrait;
 use PoP\BasicDirectives\DirectiveResolvers\AbstractTransformFieldValueDirectiveResolver;
 
 /**
- * Replace a starter section from the URL
+ * Replace the beginning section from the URL with another URL
  */
-class ReplaceURLSectionDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
+class ModifyURLDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
 {
     use GlobalDirectiveResolverTrait;
 
-    const DIRECTIVE_NAME = 'replaceURLSection';
+    const DIRECTIVE_NAME = 'modifyURL';
     public static function getDirectiveName(): string
     {
         return self::DIRECTIVE_NAME;
@@ -40,11 +40,12 @@ class ReplaceURLSectionDirectiveResolver extends AbstractTransformFieldValueDire
             return $value;
         }
         /**
-         * Only if the URL starts with the given domain then do the replacement
+         * Search from the beginning of the URL
          */
         $from = $this->getFromURLSection();
-        $to = $this->getToURLSection();
         if (substr($value, 0, strlen($from)) == $from) {
+            // Do the replacement
+            $to = $this->getToURLSection();
             return $to.substr($value, strlen($from));
         }
         return $value;
@@ -60,7 +61,7 @@ class ReplaceURLSectionDirectiveResolver extends AbstractTransformFieldValueDire
     public function getSchemaDirectiveDescription(TypeResolverInterface $typeResolver): ?string
     {
         $translationAPI = TranslationAPIFacade::getInstance();
-        return $translationAPI->__('Replace the domain in the URL', 'basic-directives');
+        return $translationAPI->__('Replace the beginning path from the URL with another URL', 'basic-directives');
     }
     public function getSchemaDirectiveArgs(TypeResolverInterface $typeResolver): array
     {
