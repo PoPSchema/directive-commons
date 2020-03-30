@@ -42,12 +42,20 @@ class ReplaceURLSectionDirectiveResolver extends AbstractTransformFieldValueDire
         /**
          * Only if the URL starts with the given domain then do the replacement
          */
-        $from = $this->directiveArgsForSchema['from'];
-        $to = $this->directiveArgsForSchema['to'];
+        $from = $this->getFromURLSection();
+        $to = $this->getToURLSection();
         if (substr($value, 0, strlen($from)) == $from) {
             return $to.substr($value, strlen($from));
         }
         return $value;
+    }
+    protected function getFromURLSection(): ?string
+    {
+        return $this->directiveArgsForSchema['from'];
+    }
+    protected function getToURLSection(): ?string
+    {
+        return $this->directiveArgsForSchema['to'];
     }
     public function getSchemaDirectiveDescription(TypeResolverInterface $typeResolver): ?string
     {
