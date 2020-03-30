@@ -11,11 +11,11 @@ use PoP\BasicDirectives\DirectiveResolvers\AbstractTransformFieldValueDirectiveR
 /**
  * Replace the domain from the URL
  */
-class ReplaceDomainDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
+class ReplaceURLSectionDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
 {
     use GlobalDirectiveResolverTrait;
 
-    const DIRECTIVE_NAME = 'replaceDomain';
+    const DIRECTIVE_NAME = 'replaceURLSection';
     public static function getDirectiveName(): string
     {
         return self::DIRECTIVE_NAME;
