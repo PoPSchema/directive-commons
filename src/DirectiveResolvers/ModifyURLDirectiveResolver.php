@@ -1,17 +1,16 @@
 <?php
 namespace PoP\BasicDirectives\DirectiveResolvers;
 
-use PoP\ComponentModel\Feedback\Tokens;
 use PoP\ComponentModel\Schema\SchemaDefinition;
 use PoP\Translation\Facades\TranslationAPIFacade;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\DirectiveResolvers\GlobalDirectiveResolverTrait;
-use PoP\BasicDirectives\DirectiveResolvers\AbstractTransformFieldValueDirectiveResolver;
+use PoP\BasicDirectives\DirectiveResolvers\AbstractTransformFieldStringValueDirectiveResolver;
 
 /**
  * Replace the beginning section from the URL with another URL
  */
-class ModifyURLDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
+class ModifyURLDirectiveResolver extends AbstractTransformFieldStringValueDirectiveResolver
 {
     use GlobalDirectiveResolverTrait;
 
@@ -23,20 +22,10 @@ class ModifyURLDirectiveResolver extends AbstractTransformFieldValueDirectiveRes
 
     protected function transformValue($value, $id, string $field, string $fieldOutputKey, TypeResolverInterface $typeResolver, array &$variables, array &$messages, array &$dbErrors, array &$dbWarnings, array &$dbDeprecations, array &$schemaErrors, array &$schemaWarnings, array &$schemaDeprecations)
     {
-        if (is_null($value)) {
-            return $value;
-        }
-        if (!is_string($value)) {
-            $translationAPI = TranslationAPIFacade::getInstance();
-            $dbWarnings[(string)$id][] = [
-                Tokens::PATH => [$this->directive],
-                Tokens::MESSAGE => sprintf(
-                    $translationAPI->__('Directive \'%s\' from field \'%s\' cannot be applied on object with ID \'%s\' because it is not a string', 'basic-directives'),
-                    $this->getDirectiveName(),
-                    $fieldOutputKey,
-                    $id
-                ),
-            ];
+        /**
+         * Validate it is a string
+         */
+        if (is_null($value) || !$this->validateTypeIsString($value, $id, $field, $fieldOutputKey, $dbErrors, $dbWarnings)) {
             return $value;
         }
         /**
