@@ -9,7 +9,7 @@ use PoP\ComponentModel\DirectiveResolvers\GlobalDirectiveResolverTrait;
 use PoP\BasicDirectives\DirectiveResolvers\AbstractTransformFieldValueDirectiveResolver;
 
 /**
- * Replace the domain from the URL
+ * Replace a starter section from the URL
  */
 class ReplaceURLSectionDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
 {
