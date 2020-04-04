@@ -58,13 +58,13 @@ class ModifyURLDirectiveResolver extends AbstractTransformFieldStringValueDirect
         return [
             [
                 SchemaDefinition::ARGNAME_NAME => 'from',
-                SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_MIXED,
+                SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_STRING,
                 SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('The domain to be replaced, including the protocol', 'basic-directives'),
                 SchemaDefinition::ARGNAME_MANDATORY => true,
             ],
             [
                 SchemaDefinition::ARGNAME_NAME => 'to',
-                SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_MIXED,
+                SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_STRING,
                 SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('The domain to use as replacement, including the protocol', 'basic-directives'),
                 SchemaDefinition::ARGNAME_MANDATORY => true,
             ],
