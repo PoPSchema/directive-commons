@@ -35,7 +35,7 @@ class ModifyURLDirectiveResolver extends AbstractTransformFieldStringValueDirect
         if (substr($value, 0, strlen($from)) == $from) {
             // Do the replacement
             $to = $this->getToURLSection();
-            return $to.substr($value, strlen($from));
+            return $to . substr($value, strlen($from));
         }
         return $value;
     }
