@@ -103,7 +103,7 @@ abstract class AbstractUseDefaultValueIfNullDirectiveResolver extends AbstractSc
                 SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_ENUM,
                 SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Condition under which using the default value kicks in', 'basic-directives'),
                 SchemaDefinition::ARGNAME_ENUMVALUES => SchemaHelpers::convertToSchemaFieldArgEnumValueDefinitions(
-                    $this->getSchemaFieldShapeValues()
+                    $this->getConditionValues()
                 ),
                 SchemaDefinition::ARGNAME_DEFAULT_VALUE => $this->getDefaultCondition(),
             ]
@@ -115,7 +115,7 @@ abstract class AbstractUseDefaultValueIfNullDirectiveResolver extends AbstractSc
         return self::ARGVALUE_CONDITION_IS_NULL;
     }
 
-    protected function getSchemaFieldShapeValues()
+    protected function getConditionValues()
     {
         return [
             self::ARGVALUE_CONDITION_IS_NULL,
