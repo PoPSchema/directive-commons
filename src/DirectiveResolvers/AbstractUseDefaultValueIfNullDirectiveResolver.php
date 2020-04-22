@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PoP\BasicDirectives\DirectiveResolvers;
 
+use PoP\ComponentModel\Schema\SchemaHelpers;
 use PoP\ComponentModel\Schema\SchemaDefinition;
 use PoP\Translation\Facades\TranslationAPIFacade;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
@@ -12,6 +13,9 @@ use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
 
 abstract class AbstractUseDefaultValueIfNullDirectiveResolver extends AbstractSchemaDirectiveResolver
 {
+    public const ARGVALUE_CONDITION_IS_NULL = 'is_null';
+    public const ARGVALUE_CONDITION_IS_EMPTY = 'is_empty';
+
     protected function getDefaultValue()
     {
         return null;
@@ -37,6 +41,7 @@ abstract class AbstractUseDefaultValueIfNullDirectiveResolver extends AbstractSc
             }
             // Take the default value from the directiveArgs
             $defaultValue = $resultItemDirectiveArgs['value'] ?? $this->getDefaultValue();
+            $condition = $resultItemDirectiveArgs['condition'] ?? $this->getDefaultCondition();
             if (!is_null($defaultValue)) {
                 foreach ($dataFields['direct'] as $field) {
                     // Get the fieldOutputKey from the cache, or calculate it
@@ -45,38 +50,76 @@ abstract class AbstractUseDefaultValueIfNullDirectiveResolver extends AbstractSc
                     }
                     $fieldOutputKey = $fieldOutputKeyCache[$field];
                     // If it is null, replace it with the default value
-                    if (is_null($dbItems[$id][$fieldOutputKey])) {
+                    if ($this->matchesCondition($condition, $dbItems[$id][$fieldOutputKey])) {
                         $dbItems[$id][$fieldOutputKey] = $defaultValue;
                     }
                 }
             }
         }
     }
+    /**
+     * Indicate if the value matches the condition under which to inject the default value
+     *
+     * @param mixed $value
+     * @return boolean
+     */
+    protected function matchesCondition(string $condition, $value): bool
+    {
+        switch ($condition) {
+            case self::ARGVALUE_CONDITION_IS_NULL:
+                return is_null($value);
+            case self::ARGVALUE_CONDITION_IS_EMPTY:
+                return empty($value);
+        }
+        return false;
+    }
     public function getSchemaDirectiveDescription(TypeResolverInterface $typeResolver): ?string
     {
         $translationAPI = TranslationAPIFacade::getInstance();
         $defaultValue = $this->getDefaultValue();
         if (is_null($defaultValue)) {
-            return $translationAPI->__('If the value of the field is `NULL`, replace it with the value provided under argument \'value\'', 'api');
+            return $translationAPI->__('If the value of the field is `NULL`, replace it with the value provided under argument \'value\'', 'basic-directives');
         }
-        return $translationAPI->__('If the value of the field is `NULL`, replace it with either the value provided under argument \'value\', or with a default value configured in the directive resolver', 'api');
+        return $translationAPI->__('If the value of the field is `NULL`, replace it with either the value provided under argument \'value\', or with a default value configured in the directive resolver', 'basic-directives');
     }
     public function getSchemaDirectiveArgs(TypeResolverInterface $typeResolver): array
     {
         $translationAPI = TranslationAPIFacade::getInstance();
-        $schemaDirectiveArgs = [
+        $schemaDirectiveArg = [
             SchemaDefinition::ARGNAME_NAME => 'value',
             SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_MIXED,
-            SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('If the value of the field is `NULL`, replace it with the value from this argument', 'api'),
+            SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('If the value of the field is `NULL`, replace it with the value from this argument', 'basic-directives'),
         ];
         $defaultValue = $this->getDefaultValue();
         if (is_null($defaultValue)) {
-            $schemaDirectiveArgs[SchemaDefinition::ARGNAME_MANDATORY] = true;
+            $schemaDirectiveArg[SchemaDefinition::ARGNAME_MANDATORY] = true;
         } else {
-            $schemaDirectiveArgs[SchemaDefinition::ARGNAME_DEFAULT_VALUE] = $defaultValue;
+            $schemaDirectiveArg[SchemaDefinition::ARGNAME_DEFAULT_VALUE] = $defaultValue;
         }
         return [
-            $schemaDirectiveArgs,
+            $schemaDirectiveArg,
+            [
+                SchemaDefinition::ARGNAME_NAME => 'condition',
+                SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_ENUM,
+                SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Condition under which using the default value kicks in', 'basic-directives'),
+                SchemaDefinition::ARGNAME_ENUMVALUES => SchemaHelpers::convertToSchemaFieldArgEnumValueDefinitions(
+                    $this->getSchemaFieldShapeValues()
+                ),
+                SchemaDefinition::ARGNAME_DEFAULT_VALUE => $this->getDefaultCondition(),
+            ]
+        ];
+    }
+
+    protected function getDefaultCondition(): string
+    {
+        return self::ARGVALUE_CONDITION_IS_NULL;
+    }
+
+    protected function getSchemaFieldShapeValues()
+    {
+        return [
+            self::ARGVALUE_CONDITION_IS_NULL,
+            self::ARGVALUE_CONDITION_IS_EMPTY,
         ];
     }
 }
