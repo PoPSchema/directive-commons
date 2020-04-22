@@ -11,7 +11,7 @@ use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
 use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
 
-abstract class AbstractUseDefaultValueIfNullDirectiveResolver extends AbstractSchemaDirectiveResolver
+abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends AbstractSchemaDirectiveResolver
 {
     public const ARGVALUE_CONDITION_IS_NULL = 'is_null';
     public const ARGVALUE_CONDITION_IS_EMPTY = 'is_empty';

@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace PoP\BasicDirectives\DirectiveResolvers;
 
 use PoP\ComponentModel\DirectiveResolvers\GlobalDirectiveResolverTrait;
-use PoP\BasicDirectives\DirectiveResolvers\AbstractUseDefaultValueIfNullDirectiveResolver;
+use PoP\BasicDirectives\DirectiveResolvers\AbstractUseDefaultValueIfConditionDirectiveResolver;
 
-class UseDefaultValueIfNullDirectiveResolver extends AbstractUseDefaultValueIfNullDirectiveResolver
+class UseDefaultValueIfConditionDirectiveResolver extends AbstractUseDefaultValueIfConditionDirectiveResolver
 {
     use GlobalDirectiveResolverTrait;
 
