@@ -21,8 +21,24 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
         return null;
     }
 
-    public function resolveDirective(TypeResolverInterface $typeResolver, array &$idsDataFields, array &$succeedingPipelineIDsDataFields, array &$succeedingPipelineDirectiveResolverInstances, array &$resultIDItems, array &$unionDBKeyIDs, array &$dbItems, array &$previousDBItems, array &$variables, array &$messages, array &$dbErrors, array &$dbWarnings, array &$dbDeprecations, array &$schemaErrors, array &$schemaWarnings, array &$schemaDeprecations)
-    {
+    public function resolveDirective(
+        TypeResolverInterface $typeResolver,
+        array &$idsDataFields,
+        array &$succeedingPipelineIDsDataFields,
+        array &$succeedingPipelineDirectiveResolverInstances,
+        array &$resultIDItems,
+        array &$unionDBKeyIDs,
+        array &$dbItems,
+        array &$previousDBItems,
+        array &$variables,
+        array &$messages,
+        array &$dbErrors,
+        array &$dbWarnings,
+        array &$dbDeprecations,
+        array &$schemaErrors,
+        array &$schemaWarnings,
+        array &$schemaDeprecations
+    ): void {
         // Replace all the NULL results with the default value
         $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
         $fieldOutputKeyCache = [];
