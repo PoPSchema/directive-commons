@@ -27,9 +27,13 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractSche
         array &$dbErrors,
         array &$dbWarnings,
         array &$dbDeprecations,
+        array &$dbNotices,
+        array &$dbTraces,
         array &$schemaErrors,
         array &$schemaWarnings,
-        array &$schemaDeprecations
+        array &$schemaDeprecations,
+        array &$schemaNotices,
+        array &$schemaTraces
     ): void {
         $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
         foreach ($idsDataFields as $id => $dataFields) {

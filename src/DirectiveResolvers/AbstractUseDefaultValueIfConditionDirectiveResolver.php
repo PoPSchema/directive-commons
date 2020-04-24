@@ -35,9 +35,13 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
         array &$dbErrors,
         array &$dbWarnings,
         array &$dbDeprecations,
+        array &$dbNotices,
+        array &$dbTraces,
         array &$schemaErrors,
         array &$schemaWarnings,
-        array &$schemaDeprecations
+        array &$schemaDeprecations,
+        array &$schemaNotices,
+        array &$schemaTraces
     ): void {
         // Replace all the NULL results with the default value
         $fieldQueryInterpreter = FieldQueryInterpreterFacade::getInstance();
