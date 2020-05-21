@@ -20,13 +20,13 @@ Via Composer
 composer require getpop/basic-directives
 ```
 
-<!--
 ## Usage
 
-``` php
+Initialize the component:
 
+``` php
+\PoP\BasicDirectives\Component::initialize();
 ```
--->
 
 ## Standards
 
