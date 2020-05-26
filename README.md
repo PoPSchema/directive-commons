@@ -25,7 +25,9 @@ composer require getpop/basic-directives
 Initialize the component:
 
 ``` php
-\PoP\BasicDirectives\Component::initialize();
+\PoP\Root\ComponentLoader::initializeComponents([
+    \PoP\BasicDirectives\Component::class,
+]);
 ```
 
 ## Standards
