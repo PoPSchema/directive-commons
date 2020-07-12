@@ -13,6 +13,7 @@ use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
 
 abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends AbstractSchemaDirectiveResolver
 {
+    public const ENUM_DEFAULT_CONDITION = 'DefaultCondition';
     public const ARGVALUE_CONDITION_IS_NULL = 'IS_NULL';
     public const ARGVALUE_CONDITION_IS_EMPTY = 'IS_EMPTY';
 
@@ -122,6 +123,7 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
                 SchemaDefinition::ARGNAME_NAME => 'condition',
                 SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_ENUM,
                 SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Condition under which using the default value kicks in', 'basic-directives'),
+                SchemaDefinition::ARGNAME_ENUMNAME => self::ENUM_DEFAULT_CONDITION,
                 SchemaDefinition::ARGNAME_ENUMVALUES => SchemaHelpers::convertToSchemaFieldArgEnumValueDefinitions(
                     $this->getConditionValues()
                 ),
