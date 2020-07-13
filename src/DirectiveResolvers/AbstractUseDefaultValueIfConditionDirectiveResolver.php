@@ -123,8 +123,8 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
                 SchemaDefinition::ARGNAME_NAME => 'condition',
                 SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_ENUM,
                 SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Condition under which using the default value kicks in', 'basic-directives'),
-                SchemaDefinition::ARGNAME_ENUMNAME => $defaultConditionEnum->getName(),
-                SchemaDefinition::ARGNAME_ENUMVALUES => SchemaHelpers::convertToSchemaFieldArgEnumValueDefinitions(
+                SchemaDefinition::ARGNAME_ENUM_NAME => $defaultConditionEnum->getName(),
+                SchemaDefinition::ARGNAME_ENUM_VALUES => SchemaHelpers::convertToSchemaFieldArgEnumValueDefinitions(
                     $defaultConditionEnum->getValues()
                 ),
                 SchemaDefinition::ARGNAME_DEFAULT_VALUE => $this->getDefaultCondition(),
