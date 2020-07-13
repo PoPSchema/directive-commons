@@ -7,16 +7,14 @@ namespace PoP\BasicDirectives\DirectiveResolvers;
 use PoP\ComponentModel\Schema\SchemaHelpers;
 use PoP\ComponentModel\Schema\SchemaDefinition;
 use PoP\Translation\Facades\TranslationAPIFacade;
+use PoP\BasicDirectives\Enums\DefaultConditionEnum;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
+use PoP\ComponentModel\Facades\Instances\InstanceManagerFacade;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;
 use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
 
 abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends AbstractSchemaDirectiveResolver
 {
-    public const ENUM_DEFAULT_CONDITION = 'DefaultCondition';
-    public const ARGVALUE_CONDITION_IS_NULL = 'IS_NULL';
-    public const ARGVALUE_CONDITION_IS_EMPTY = 'IS_EMPTY';
-
     protected function getDefaultValue()
     {
         return null;
@@ -87,9 +85,9 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
     protected function matchesCondition(string $condition, $value): bool
     {
         switch ($condition) {
-            case self::ARGVALUE_CONDITION_IS_NULL:
+            case DefaultConditionEnum::IS_NULL:
                 return is_null($value);
-            case self::ARGVALUE_CONDITION_IS_EMPTY:
+            case DefaultConditionEnum::IS_EMPTY:
                 return empty($value);
         }
         return false;
@@ -106,6 +104,8 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
     public function getSchemaDirectiveArgs(TypeResolverInterface $typeResolver): array
     {
         $translationAPI = TranslationAPIFacade::getInstance();
+        $instanceManager = InstanceManagerFacade::getInstance();
+        $defaultConditionEnum = $instanceManager->getInstance(DefaultConditionEnum::class);
         $schemaDirectiveArg = [
             SchemaDefinition::ARGNAME_NAME => 'value',
             SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_MIXED,
@@ -123,9 +123,9 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
                 SchemaDefinition::ARGNAME_NAME => 'condition',
                 SchemaDefinition::ARGNAME_TYPE => SchemaDefinition::TYPE_ENUM,
                 SchemaDefinition::ARGNAME_DESCRIPTION => $translationAPI->__('Condition under which using the default value kicks in', 'basic-directives'),
-                SchemaDefinition::ARGNAME_ENUMNAME => self::ENUM_DEFAULT_CONDITION,
+                SchemaDefinition::ARGNAME_ENUMNAME => $defaultConditionEnum->getName(),
                 SchemaDefinition::ARGNAME_ENUMVALUES => SchemaHelpers::convertToSchemaFieldArgEnumValueDefinitions(
-                    $this->getConditionValues()
+                    $defaultConditionEnum->getValues()
                 ),
                 SchemaDefinition::ARGNAME_DEFAULT_VALUE => $this->getDefaultCondition(),
             ]
@@ -134,14 +134,6 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
 
     protected function getDefaultCondition(): string
     {
-        return self::ARGVALUE_CONDITION_IS_NULL;
-    }
-
-    protected function getConditionValues()
-    {
-        return [
-            self::ARGVALUE_CONDITION_IS_NULL,
-            self::ARGVALUE_CONDITION_IS_EMPTY,
-        ];
+        return DefaultConditionEnum::IS_NULL;
     }
 }
