@@ -17,7 +17,7 @@ Set of basic directives
 Via Composer
 
 ``` bash
-composer require getpop/basic-directives
+composer require pop-schema/basic-directives
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ Initialize the component:
 
 ``` php
 \PoP\Root\ComponentLoader::initializeComponents([
-    \PoP\BasicDirectives\Component::class,
+    \PoPSchema\BasicDirectives\Component::class,
 ]);
 ```
 
@@ -74,17 +74,17 @@ If you discover any security related issues, please email leo@getpop.org instead
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/getpop/basic-directives.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/pop-schema/basic-directives.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/getpop/basic-directives/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/getpop/basic-directives.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/getpop/basic-directives.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/getpop/basic-directives.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/pop-schema/basic-directives/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/pop-schema/basic-directives.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/pop-schema/basic-directives.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/pop-schema/basic-directives.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/getpop/basic-directives
-[link-travis]: https://travis-ci.org/getpop/basic-directives
-[link-scrutinizer]: https://scrutinizer-ci.com/g/getpop/basic-directives/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/getpop/basic-directives
-[link-downloads]: https://packagist.org/packages/getpop/basic-directives
+[link-packagist]: https://packagist.org/packages/pop-schema/basic-directives
+[link-travis]: https://travis-ci.org/pop-schema/basic-directives
+[link-scrutinizer]: https://scrutinizer-ci.com/g/pop-schema/basic-directives/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/pop-schema/basic-directives
+[link-downloads]: https://packagist.org/packages/pop-schema/basic-directives
 [link-contributors]: ../../contributors
 [link-author]: https://github.com/leoloso

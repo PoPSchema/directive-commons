@@ -1,12 +1,12 @@
 {
-    "name": "getpop/basic-directives",
+    "name": "pop-schema/basic-directives",
     "type": "library",
     "description": "Set of basic directives",
     "keywords": [
         "PoP",
         "basic-directives"
     ],
-    "homepage": "https://github.com/getpop/basic-directives",
+    "homepage": "https://github.com/pop-schema/basic-directives",
     "license": "MIT",
     "authors": [
         {
@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PoP\\BasicDirectives\\": "src"
+            "PoPSchema\\BasicDirectives\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PoP\\BasicDirectives\\": "tests"
+            "PoPSchema\\BasicDirectives\\": "tests"
         }
     },
     "scripts": {

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace PoP\BasicDirectives\DirectiveResolvers;
+namespace PoPSchema\BasicDirectives\DirectiveResolvers;
 
 use PoP\ComponentModel\Schema\SchemaHelpers;
 use PoP\ComponentModel\Schema\SchemaDefinition;
 use PoP\Translation\Facades\TranslationAPIFacade;
-use PoP\BasicDirectives\Enums\DefaultConditionEnum;
+use PoPSchema\BasicDirectives\Enums\DefaultConditionEnum;
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\Facades\Instances\InstanceManagerFacade;
 use PoP\ComponentModel\Facades\Schema\FieldQueryInterpreterFacade;

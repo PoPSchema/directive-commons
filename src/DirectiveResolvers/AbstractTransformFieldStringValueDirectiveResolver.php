@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PoP\BasicDirectives\DirectiveResolvers;
+namespace PoPSchema\BasicDirectives\DirectiveResolvers;
 
 use PoP\ComponentModel\Feedback\Tokens;
 use PoP\Translation\Facades\TranslationAPIFacade;

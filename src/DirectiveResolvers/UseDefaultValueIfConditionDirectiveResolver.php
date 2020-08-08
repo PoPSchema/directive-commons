@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace PoP\BasicDirectives\DirectiveResolvers;
+namespace PoPSchema\BasicDirectives\DirectiveResolvers;
 
 use PoP\ComponentModel\DirectiveResolvers\GlobalDirectiveResolverTrait;
-use PoP\BasicDirectives\DirectiveResolvers\AbstractUseDefaultValueIfConditionDirectiveResolver;
+use PoPSchema\BasicDirectives\DirectiveResolvers\AbstractUseDefaultValueIfConditionDirectiveResolver;
 
 class UseDefaultValueIfConditionDirectiveResolver extends AbstractUseDefaultValueIfConditionDirectiveResolver
 {
