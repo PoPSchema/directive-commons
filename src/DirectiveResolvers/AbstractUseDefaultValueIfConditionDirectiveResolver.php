@@ -97,9 +97,9 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
         $translationAPI = TranslationAPIFacade::getInstance();
         $defaultValue = $this->getDefaultValue();
         if (is_null($defaultValue)) {
-            return $translationAPI->__('If the value of the field is `NULL`, replace it with the value provided under argument \'value\'', 'basic-directives');
+            return $translationAPI->__('If the value of the field is `NULL` (or empty), replace it with the value provided under argument \'value\'', 'basic-directives');
         }
-        return $translationAPI->__('If the value of the field is `NULL`, replace it with either the value provided under argument \'value\', or with a default value configured in the directive resolver', 'basic-directives');
+        return $translationAPI->__('If the value of the field is `NULL` (or empty), replace it with either the value provided under argument \'value\', or with a default value configured in the directive resolver', 'basic-directives');
     }
     public function getSchemaDirectiveArgs(TypeResolverInterface $typeResolver): array
     {
