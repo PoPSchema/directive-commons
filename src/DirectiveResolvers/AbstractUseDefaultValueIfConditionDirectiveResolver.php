@@ -105,6 +105,9 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
     {
         $translationAPI = TranslationAPIFacade::getInstance();
         $instanceManager = InstanceManagerFacade::getInstance();
+        /**
+         * @var DefaultConditionEnum
+         */
         $defaultConditionEnum = $instanceManager->getInstance(DefaultConditionEnum::class);
         $schemaDirectiveArg = [
             SchemaDefinition::ARGNAME_NAME => 'value',
