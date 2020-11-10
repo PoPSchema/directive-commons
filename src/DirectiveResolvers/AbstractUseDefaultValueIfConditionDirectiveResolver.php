@@ -59,8 +59,8 @@ abstract class AbstractUseDefaultValueIfConditionDirectiveResolver extends Abstr
                 continue;
             }
             // Take the default value from the directiveArgs
-            $defaultValue = $resultItemDirectiveArgs['value'] ?? $this->getDefaultValue();
-            $condition = $resultItemDirectiveArgs['condition'] ?? $this->getDefaultCondition();
+            $defaultValue = $resultItemDirectiveArgs['value'];
+            $condition = $resultItemDirectiveArgs['condition'];
             if (!is_null($defaultValue)) {
                 foreach ($dataFields['direct'] as $field) {
                     // Get the fieldOutputKey from the cache, or calculate it
