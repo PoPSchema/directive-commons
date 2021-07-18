@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PoPSchema\BasicDirectives;
+namespace PoPSchema\DirectiveCommons;
 
 use PoP\Root\Component\AbstractComponent;
 
@@ -19,7 +19,6 @@ class Component extends AbstractComponent
     public static function getDependedComponentClasses(): array
     {
         return [
-            \PoP\Engine\Component::class,
             \PoPSchema\SchemaCommons\Component::class,
         ];
     }
@@ -36,6 +35,5 @@ class Component extends AbstractComponent
         array $skipSchemaComponentClasses = []
     ): void {
         self::initServices(dirname(__DIR__));
-        self::initSchemaServices(dirname(__DIR__), $skipSchema);
     }
 }

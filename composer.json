@@ -1,9 +1,9 @@
 {
-    "name": "pop-schema/basic-directives",
+    "name": "pop-schema/directive-commons",
     "type": "library",
-    "description": "Set of basic directives",
-    "keywords": ["PoP", "basic-directives"],
-    "homepage": "https://github.com/pop-schema/basic-directives",
+    "description": "Code shared by the packages with directives",
+    "keywords": ["PoP", "directive-commons"],
+    "homepage": "https://github.com/PoPSchema/directive-commons",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
@@ -16,7 +16,6 @@
     "prefer-stable": true,
     "require": {
         "php": "^8.0",
-        "getpop/engine": "^0.8",
         "pop-schema/schema-commons": "^0.8"
     },
     "require-dev": {
@@ -27,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "PoPSchema\\BasicDirectives\\": "src"
+            "PoPSchema\\DirectiveCommons\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PoPSchema\\BasicDirectives\\": "tests"
+            "PoPSchema\\DirectiveCommons\\": "tests"
         }
     },
     "scripts": {

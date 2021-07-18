@@ -1,4 +1,4 @@
-# Basic directives
+# Directive Commons
 
 <!--
 [![Build Status][ico-travis]][link-travis]
@@ -9,19 +9,19 @@
 [![Total Downloads][ico-downloads]][link-downloads]
 -->
 
-Set of basic directives
+Code shared by the packages with directives
 
 ## Install
 
 Via Composer
 
 ``` bash
-composer require pop-schema/basic-directives
+composer require pop-schema/directive-commons
 ```
 
 ## Development
 
-The source code is hosted on the [PoP monorepo](https://github.com/leoloso/PoP), under [`Schema/packages/basic-directives`](https://github.com/leoloso/PoP/tree/master/layers/Schema/packages/basic-directives).
+The source code is hosted on the [PRO monorepo for PoP](https://github.com/leoloso/PRO), under [`Schema/packages/directive-commons`](https://github.com/leoloso/PRO/tree/master/layers/Schema/packages/directive-commons).
 
 ## Usage
 
@@ -29,7 +29,7 @@ Initialize the component:
 
 ``` php
 \PoP\Root\AppLoader::addComponentClassesToInitialize([
-    \PoPSchema\BasicDirectives\Component::class,
+    \PoPSchema\DirectiveCommons\Component::class,
 ]);
 ```
 
@@ -110,17 +110,17 @@ If you discover any security related issues, please email leo@getpop.org instead
 
 GNU General Public License v2 (or later). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/pop-schema/basic-directives.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/pop-schema/directive-commons.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-GPLv2-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/pop-schema/basic-directives/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/pop-schema/basic-directives.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/pop-schema/basic-directives.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/pop-schema/basic-directives.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/pop-schema/directive-commons/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/pop-schema/directive-commons.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/pop-schema/directive-commons.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/pop-schema/directive-commons.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/pop-schema/basic-directives
-[link-travis]: https://travis-ci.org/pop-schema/basic-directives
-[link-scrutinizer]: https://scrutinizer-ci.com/g/pop-schema/basic-directives/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/pop-schema/basic-directives
-[link-downloads]: https://packagist.org/packages/pop-schema/basic-directives
+[link-packagist]: https://packagist.org/packages/pop-schema/directive-commons
+[link-travis]: https://travis-ci.org/pop-schema/directive-commons
+[link-scrutinizer]: https://scrutinizer-ci.com/g/pop-schema/directive-commons/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/pop-schema/directive-commons
+[link-downloads]: https://packagist.org/packages/pop-schema/directive-commons
 [link-contributors]: ../../../../../../contributors
 [link-author]: https://github.com/leoloso

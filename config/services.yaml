@@ -4,5 +4,5 @@ services:
         autowire: true
         autoconfigure: true
 
-    PoPSchema\BasicDirectives\Enums\:
+    PoPSchema\DirectiveCommons\Enums\:
         resource: '../src/Enums/*'

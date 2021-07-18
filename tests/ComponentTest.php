@@ -1,6 +1,6 @@
 <?php
 
-namespace PoPSchema\BasicDirectives;
+namespace PoPSchema\DirectiveCommons;
 
 use PHPUnit\Framework\TestCase;
 

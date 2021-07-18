@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace PoPSchema\BasicDirectives\DirectiveResolvers;
+namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
 use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
 use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
