@@ -1,5 +1,5 @@
 {
-    "name": "pop-schema/directive-commons",
+    "name": "pop-schema-pro/directive-commons",
     "type": "library",
     "description": "Code shared by the packages with directives",
     "keywords": ["PoP", "directive-commons"],
