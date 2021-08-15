@@ -36,7 +36,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractSche
     ): void {
         foreach ($idsDataFields as $id => $dataFields) {
             foreach ($dataFields['direct'] as $field) {
-                $fieldOutputKey = $this->fieldQueryInterpreter->getFieldOutputKey($field);
+                $fieldOutputKey = $this->fieldQueryInterpreter->getUniqueFieldOutputKey($typeResolver, $field);
                 $dbItems[(string)$id][$fieldOutputKey] = $this->transformValue(
                     $dbItems[(string)$id][$fieldOutputKey],
                     $id,
