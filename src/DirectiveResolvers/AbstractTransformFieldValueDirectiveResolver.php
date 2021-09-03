@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
-use PoP\ComponentModel\TypeResolvers\TypeResolverInterface;
+use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
 
 /**
@@ -13,7 +13,7 @@ use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
 abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractSchemaDirectiveResolver
 {
     public function resolveDirective(
-        TypeResolverInterface $typeResolver,
+        RelationalTypeResolverInterface $relationalTypeResolver,
         array &$idsDataFields,
         array &$succeedingPipelineIDsDataFields,
         array &$succeedingPipelineDirectiveResolverInstances,
@@ -36,13 +36,13 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractSche
     ): void {
         foreach ($idsDataFields as $id => $dataFields) {
             foreach ($dataFields['direct'] as $field) {
-                $fieldOutputKey = $this->fieldQueryInterpreter->getUniqueFieldOutputKey($typeResolver, $field);
+                $fieldOutputKey = $this->fieldQueryInterpreter->getUniqueFieldOutputKey($relationalTypeResolver, $field);
                 $dbItems[(string)$id][$fieldOutputKey] = $this->transformValue(
                     $dbItems[(string)$id][$fieldOutputKey],
                     $id,
                     $field,
                     $fieldOutputKey,
-                    $typeResolver,
+                    $relationalTypeResolver,
                     $variables,
                     $messages,
                     $dbErrors,
@@ -56,5 +56,5 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractSche
         }
     }
 
-    abstract protected function transformValue($value, $id, string $field, string $fieldOutputKey, TypeResolverInterface $typeResolver, array &$variables, array &$messages, array &$dbErrors, array &$dbWarnings, array &$dbDeprecations, array &$schemaErrors, array &$schemaWarnings, array &$schemaDeprecations);
+    abstract protected function transformValue($value, $id, string $field, string $fieldOutputKey, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages, array &$dbErrors, array &$dbWarnings, array &$dbDeprecations, array &$schemaErrors, array &$schemaWarnings, array &$schemaDeprecations);
 }
