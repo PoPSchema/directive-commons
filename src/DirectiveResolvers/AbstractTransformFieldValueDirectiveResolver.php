@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
-use PoP\ComponentModel\DirectiveResolvers\AbstractSchemaDirectiveResolver;
+use PoP\ComponentModel\DirectiveResolvers\AbstractDirectiveResolver;
 
 /**
  * Apply a transformation to the string
  */
-abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractSchemaDirectiveResolver
+abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDirectiveResolver
 {
     public function resolveDirective(
         RelationalTypeResolverInterface $relationalTypeResolver,
