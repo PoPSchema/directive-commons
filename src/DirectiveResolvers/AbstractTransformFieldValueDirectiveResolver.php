@@ -17,17 +17,17 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         array &$idsDataFields,
         array &$succeedingPipelineIDsDataFields,
         array &$succeedingPipelineDirectiveResolverInstances,
-        array &$resultIDItems,
+        array &$objectIDItems,
         array &$unionDBKeyIDs,
         array &$dbItems,
         array &$previousDBItems,
         array &$variables,
         array &$messages,
-        array &$dbErrors,
-        array &$dbWarnings,
-        array &$dbDeprecations,
-        array &$dbNotices,
-        array &$dbTraces,
+        array &$objectErrors,
+        array &$objectWarnings,
+        array &$objectDeprecations,
+        array &$objectNotices,
+        array &$objectTraces,
         array &$schemaErrors,
         array &$schemaWarnings,
         array &$schemaDeprecations,
@@ -45,9 +45,9 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
                     $relationalTypeResolver,
                     $variables,
                     $messages,
-                    $dbErrors,
-                    $dbWarnings,
-                    $dbDeprecations,
+                    $objectErrors,
+                    $objectWarnings,
+                    $objectDeprecations,
                     $schemaErrors,
                     $schemaWarnings,
                     $schemaDeprecations
@@ -56,5 +56,5 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         }
     }
 
-    abstract protected function transformValue($value, $id, string $field, string $fieldOutputKey, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages, array &$dbErrors, array &$dbWarnings, array &$dbDeprecations, array &$schemaErrors, array &$schemaWarnings, array &$schemaDeprecations);
+    abstract protected function transformValue($value, $id, string $field, string $fieldOutputKey, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages, array &$objectErrors, array &$objectWarnings, array &$objectDeprecations, array &$schemaErrors, array &$schemaWarnings, array &$schemaDeprecations);
 }

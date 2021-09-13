@@ -11,10 +11,10 @@ use PoP\ComponentModel\Feedback\Tokens;
  */
 abstract class AbstractTransformFieldStringValueDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
 {
-    protected function validateTypeIsString($value, $id, string $field, string $fieldOutputKey, array &$dbErrors, array &$dbWarnings)
+    protected function validateTypeIsString($value, $id, string $field, string $fieldOutputKey, array &$objectErrors, array &$objectWarnings)
     {
         if (!is_string($value)) {
-            $dbWarnings[(string)$id][] = [
+            $objectWarnings[(string)$id][] = [
                 Tokens::PATH => [$this->directive],
                 Tokens::MESSAGE => sprintf(
                     $this->translationAPI->__('Directive \'%s\' from field \'%s\' cannot be applied on object with ID \'%s\' because it is not a string', 'practical-directives'),
