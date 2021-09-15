@@ -4,18 +4,21 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\Enums;
 
-use PoP\ComponentModel\Enums\AbstractEnum;
+use PoP\ComponentModel\Enums\AbstractEnumTypeResolver;
 
-class DefaultConditionEnum extends AbstractEnum
+class DefaultConditionEnum extends AbstractEnumTypeResolver
 {
     public const IS_NULL = 'IS_NULL';
     public const IS_EMPTY = 'IS_EMPTY';
 
-    protected function getEnumName(): string
+    public function getTypeName(): string
     {
         return 'DefaultCondition';
     }
-    public function getValues(): array
+    /**
+     * @return string[]
+     */
+    public function getEnumValues(): array
     {
         return [
             self::IS_NULL,
