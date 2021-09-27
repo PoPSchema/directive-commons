@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\TypeResolvers\EnumType;
 
-use PoP\ComponentModel\Enums\AbstractEnumTypeResolver;
+use PoP\ComponentModel\TypeResolvers\EnumType\AbstractEnumTypeResolver;
 use PoPSchema\DirectiveCommons\Enums\DefaultConditionEnum;
 
 class DefaultConditionEnumTypeResolver extends AbstractEnumTypeResolver
