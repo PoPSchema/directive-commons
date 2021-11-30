@@ -11,7 +11,7 @@ class DefaultConditionEnumTypeResolver extends AbstractEnumTypeResolver
 {
     public function getTypeName(): string
     {
-        return 'DefaultCondition';
+        return 'DefaultConditionEnum';
     }
     /**
      * @return string[]
