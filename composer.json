@@ -186,7 +186,7 @@
     },
     "type": "library",
     "description": "Code shared by the packages with directives",
-    "keywords": ["PHP", "PoP", "PRO", "directive-commons"],
+    "keywords": ["PoP", "PRO", "directive-commons"],
     "homepage": "https://github.com/PoPSchema/directive-commons",
     "license": "GPL-2.0-or-later",
     "authors": [
