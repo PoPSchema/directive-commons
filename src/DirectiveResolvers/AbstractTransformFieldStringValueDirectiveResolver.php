@@ -17,7 +17,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
             $objectWarnings[(string)$id][] = [
                 Tokens::PATH => [$this->directive],
                 Tokens::MESSAGE => sprintf(
-                    $this->getTranslationAPI()->__('Directive \'%s\' from field \'%s\' cannot be applied on object with ID \'%s\' because it is not a string', 'practical-directives'),
+                    $this->__('Directive \'%s\' from field \'%s\' cannot be applied on object with ID \'%s\' because it is not a string', 'practical-directives'),
                     $this->getDirectiveName(),
                     $fieldOutputKey,
                     $id

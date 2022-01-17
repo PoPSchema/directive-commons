@@ -28,7 +28,7 @@ The source code is hosted on the [PRO monorepo for PoP](https://github.com/leolo
 Initialize the component:
 
 ``` php
-\PoP\Root\AppLoader::addComponentClassesToInitialize([
+\PoP\Root\App::stockAndInitializeComponentClasses([([
     \PoPSchema\DirectiveCommons\Component::class,
 ]);
 ```
