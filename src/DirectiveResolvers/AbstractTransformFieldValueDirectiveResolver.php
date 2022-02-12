@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
+use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\DirectiveResolvers\AbstractDirectiveResolver;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 
@@ -14,15 +15,16 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
 {
     public function resolveDirective(
         RelationalTypeResolverInterface $relationalTypeResolver,
-        array &$idsDataFields,
+        array $idsDataFields,
+        array $succeedingPipelineDirectiveResolverInstances,
+        array $objectIDItems,
+        array $unionDBKeyIDs,
+        array $previousDBItems,
         array &$succeedingPipelineIDsDataFields,
-        array &$succeedingPipelineDirectiveResolverInstances,
-        array &$objectIDItems,
-        array &$unionDBKeyIDs,
         array &$dbItems,
-        array &$previousDBItems,
         array &$variables,
         array &$messages,
+        EngineIterationFeedbackStore $engineIterationFeedbackStore,
         array &$objectErrors,
         array &$objectWarnings,
         array &$objectDeprecations,
@@ -44,6 +46,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
                     $field,
                     $fieldOutputKey,
                     $relationalTypeResolver,
+                    $succeedingPipelineIDsDataFields,
                     $variables,
                     $messages,
                     $objectErrors,
@@ -57,5 +60,20 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         }
     }
 
-    abstract protected function transformValue(mixed $value, string | int $id, string $field, string $fieldOutputKey, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages, array &$objectErrors, array &$objectWarnings, array &$objectDeprecations, array &$schemaErrors, array &$schemaWarnings, array &$schemaDeprecations);
+    abstract protected function transformValue(
+        mixed $value,
+        string | int $id,
+        string $field,
+        string $fieldOutputKey,
+        RelationalTypeResolverInterface $relationalTypeResolver,
+        array &$succeedingPipelineIDsDataFields,
+        array &$variables,
+        array &$messages,
+        array &$objectErrors,
+        array &$objectWarnings,
+        array &$objectDeprecations,
+        array &$schemaErrors,
+        array &$schemaWarnings,
+        array &$schemaDeprecations
+    ): mixed;
 }
