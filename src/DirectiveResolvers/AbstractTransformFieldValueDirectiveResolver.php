@@ -25,16 +25,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
-        array &$objectErrors,
-        array &$objectWarnings,
-        array &$objectDeprecations,
-        array &$objectNotices,
-        array &$objectTraces,
-        array &$schemaErrors,
-        array &$schemaWarnings,
-        array &$schemaDeprecations,
-        array &$schemaNotices,
-        array &$schemaTraces
     ): void {
         foreach ($idsDataFields as $id => $dataFields) {
             $object = $objectIDItems[$id];
@@ -49,12 +39,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
                     $succeedingPipelineIDsDataFields,
                     $variables,
                     $messages,
-                    $objectErrors,
-                    $objectWarnings,
-                    $objectDeprecations,
-                    $schemaErrors,
-                    $schemaWarnings,
-                    $schemaDeprecations
+                    $engineIterationFeedbackStore,
                 );
             }
         }
@@ -69,11 +54,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         array &$succeedingPipelineIDsDataFields,
         array &$variables,
         array &$messages,
-        array &$objectErrors,
-        array &$objectWarnings,
-        array &$objectDeprecations,
-        array &$schemaErrors,
-        array &$schemaWarnings,
-        array &$schemaDeprecations
+        EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): mixed;
 }
