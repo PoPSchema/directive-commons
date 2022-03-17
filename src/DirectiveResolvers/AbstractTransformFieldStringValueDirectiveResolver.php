@@ -7,7 +7,7 @@ namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 use PoP\ComponentModel\Component as ComponentModelComponent;
 use PoP\ComponentModel\ComponentConfiguration as ComponentModelComponentConfiguration;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
-use PoP\ComponentModel\Feedback\FeedbackItemResolution;
+use PoP\Root\Feedback\FeedbackItemResolution;
 use PoP\ComponentModel\Feedback\ObjectFeedback;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\GraphQLParser\StaticHelpers\LocationHelper;
