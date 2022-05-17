@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
-use PoP\ComponentModel\Component as ComponentModelComponent;
-use PoP\ComponentModel\ComponentConfiguration as ComponentModelComponentConfiguration;
+use PoP\ComponentModel\Module as ComponentModelModule;
+use PoP\ComponentModel\ModuleConfiguration as ComponentModelModuleConfiguration;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\Root\Feedback\FeedbackItemResolution;
 use PoP\ComponentModel\Feedback\ObjectFeedback;
@@ -74,9 +74,9 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         array &$succeedingPipelineIDsDataFields,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
-        /** @var ComponentModelComponentConfiguration */
-        $componentConfiguration = App::getComponent(ComponentModelComponent::class)->getConfiguration();
-        $removeFieldIfDirectiveFailed = $componentConfiguration->removeFieldIfDirectiveFailed();
+        /** @var ComponentModelModuleConfiguration */
+        $moduleConfiguration = App::getModule(ComponentModelModule::class)->getConfiguration();
+        $removeFieldIfDirectiveFailed = $moduleConfiguration->removeFieldIfDirectiveFailed();
         if ($removeFieldIfDirectiveFailed) {
             $idsDataFieldsToRemove = [];
             $idsDataFieldsToRemove[(string)$id]['direct'][] = $field;
