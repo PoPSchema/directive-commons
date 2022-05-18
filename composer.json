@@ -30,7 +30,7 @@
         "pop-cms-schema/locationposts-wp": "<0.8.10",
         "pop-sites-wassup/locationpostlink-mutations": "<0.8.10",
         "pop-api-demo-site/examples-for-pop": "<0.8.10",
-        "getpop/modulerouting": "<0.8.9",
+        "getpop/componentrouting": "<0.8.9",
         "getpop/loosecontracts": "<0.8.9",
         "getpop/translation": "<0.8.9",
         "getpop/mandatory-directives-by-configuration": "<0.8.9",
