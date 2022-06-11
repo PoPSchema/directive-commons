@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
-use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\DirectiveResolvers\AbstractDirectiveResolver;
+use PoP\ComponentModel\Engine\EngineIterationFieldSet;
+use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
+use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
 
 /**
  * Apply a transformation to the string
  */
 abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDirectiveResolver
 {
+    /**
+     * @param array<string|int,EngineIterationFieldSet> $idsDataFields
+     * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDsDataFields
+     */
     public function resolveDirective(
         RelationalTypeResolverInterface $relationalTypeResolver,
         array $idsDataFields,
@@ -27,9 +33,8 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
         foreach ($idsDataFields as $id => $dataFields) {
-            $object = $objectIDItems[$id];
-            foreach ($dataFields['direct'] as $field) {
-                $fieldOutputKey = $this->getFieldQueryInterpreter()->getUniqueFieldOutputKey($relationalTypeResolver, $field, $object);
+            foreach ($dataFields->direct as $field) {
+                $fieldOutputKey = $field->getOutputKey();
                 $dbItems[(string)$id][$fieldOutputKey] = $this->transformValue(
                     $dbItems[(string)$id][$fieldOutputKey],
                     $id,
@@ -48,7 +53,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
     abstract protected function transformValue(
         mixed $value,
         string | int $id,
-        string $field,
+        FieldInterface $field,
         string $fieldOutputKey,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDsDataFields,
