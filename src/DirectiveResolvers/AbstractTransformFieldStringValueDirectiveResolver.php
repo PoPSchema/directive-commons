@@ -27,7 +27,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         FieldInterface $field,
         string $fieldOutputKey,
         RelationalTypeResolverInterface $relationalTypeResolver,
-        array &$succeedingPipelineIDsDataFields,
+        array &$succeedingPipelineIDFieldSet,
         array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
@@ -47,7 +47,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
                 $field,
                 $fieldOutputKey,
                 $relationalTypeResolver,
-                $succeedingPipelineIDsDataFields,
+                $succeedingPipelineIDFieldSet,
                 $engineIterationFeedbackStore,
             );
             return null;
@@ -73,7 +73,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         FieldInterface $field,
         string $fieldOutputKey,
         RelationalTypeResolverInterface $relationalTypeResolver,
-        array &$succeedingPipelineIDsDataFields,
+        array &$succeedingPipelineIDFieldSet,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
         /** @var ComponentModelModuleConfiguration */
@@ -81,13 +81,13 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         $removeFieldIfDirectiveFailed = $moduleConfiguration->removeFieldIfDirectiveFailed();
         if ($removeFieldIfDirectiveFailed) {
             /** @var array<string|int,EngineIterationFieldSet> */
-            $idsDataFieldsToRemove = [
+            $idFieldSetToRemove = [
                 $id => new EngineIterationFieldSet(),
             ];
-            $idsDataFieldsToRemove[$id]->direct[] = $field;
-            $this->removeIDsDataFields(
-                $idsDataFieldsToRemove,
-                $succeedingPipelineIDsDataFields
+            $idFieldSetToRemove[$id]->fields[] = $field;
+            $this->removeIDFieldSet(
+                $idFieldSetToRemove,
+                $succeedingPipelineIDFieldSet
             );
         }
 

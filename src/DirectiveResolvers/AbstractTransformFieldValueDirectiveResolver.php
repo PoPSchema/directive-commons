@@ -16,24 +16,24 @@ use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
 abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDirectiveResolver
 {
     /**
-     * @param array<string|int,EngineIterationFieldSet> $idsDataFields
-     * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDsDataFields
+     * @param array<string|int,EngineIterationFieldSet> $idFieldSet
+     * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
      */
     public function resolveDirective(
         RelationalTypeResolverInterface $relationalTypeResolver,
-        array $idsDataFields,
+        array $idFieldSet,
         array $succeedingPipelineDirectiveResolverInstances,
         array $objectIDItems,
         array $unionDBKeyIDs,
         array $previousDBItems,
-        array &$succeedingPipelineIDsDataFields,
+        array &$succeedingPipelineIDFieldSet,
         array &$dbItems,
         array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
-        foreach ($idsDataFields as $id => $dataFields) {
-            foreach ($dataFields->direct as $field) {
+        foreach ($idFieldSet as $id => $fieldSet) {
+            foreach ($fieldSet->fields as $field) {
                 $fieldOutputKey = $field->getOutputKey();
                 $dbItems[$id][$fieldOutputKey] = $this->transformValue(
                     $dbItems[$id][$fieldOutputKey],
@@ -41,7 +41,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
                     $field,
                     $fieldOutputKey,
                     $relationalTypeResolver,
-                    $succeedingPipelineIDsDataFields,
+                    $succeedingPipelineIDFieldSet,
                     $variables,
                     $messages,
                     $engineIterationFeedbackStore,
@@ -56,7 +56,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         FieldInterface $field,
         string $fieldOutputKey,
         RelationalTypeResolverInterface $relationalTypeResolver,
-        array &$succeedingPipelineIDsDataFields,
+        array &$succeedingPipelineIDFieldSet,
         array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
