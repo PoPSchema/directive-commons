@@ -84,7 +84,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
             $idsDataFieldsToRemove = [
                 $id => new EngineIterationFieldSet(),
             ];
-            $idsDataFieldsToRemove[(string)$id]->direct[] = $field;
+            $idsDataFieldsToRemove[$id]->direct[] = $field;
             $this->removeIDsDataFields(
                 $idsDataFieldsToRemove,
                 $succeedingPipelineIDsDataFields

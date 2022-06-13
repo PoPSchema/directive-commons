@@ -35,8 +35,8 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         foreach ($idsDataFields as $id => $dataFields) {
             foreach ($dataFields->direct as $field) {
                 $fieldOutputKey = $field->getOutputKey();
-                $dbItems[(string)$id][$fieldOutputKey] = $this->transformValue(
-                    $dbItems[(string)$id][$fieldOutputKey],
+                $dbItems[$id][$fieldOutputKey] = $this->transformValue(
+                    $dbItems[$id][$fieldOutputKey],
                     $id,
                     $field,
                     $fieldOutputKey,
