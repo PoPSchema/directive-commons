@@ -22,12 +22,12 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
     public function resolveDirective(
         RelationalTypeResolverInterface $relationalTypeResolver,
         array $idFieldSet,
-        array $succeedingPipelineDirectiveResolverInstances,
-        array $objectIDItems,
+        array $succeedingPipelineDirectiveResolvers,
+        array $idObjects,
         array $unionDBKeyIDs,
-        array $previousDBItems,
+        array $previouslyResolvedIDFieldValues,
         array &$succeedingPipelineIDFieldSet,
-        array &$dbItems,
+        array &$resolvedIDFieldValues,
         array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
@@ -35,8 +35,8 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         foreach ($idFieldSet as $id => $fieldSet) {
             foreach ($fieldSet->fields as $field) {
                 $fieldOutputKey = $field->getOutputKey();
-                $dbItems[$id][$fieldOutputKey] = $this->transformValue(
-                    $dbItems[$id][$fieldOutputKey],
+                $resolvedIDFieldValues[$id][$fieldOutputKey] = $this->transformValue(
+                    $resolvedIDFieldValues[$id][$fieldOutputKey],
                     $id,
                     $field,
                     $fieldOutputKey,
