@@ -9,6 +9,7 @@ use PoP\ComponentModel\Engine\EngineIterationFieldSet;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
+use SplObjectStorage;
 
 /**
  * Apply a transformation to the string
@@ -18,6 +19,8 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
     /**
      * @param array<string|int,EngineIterationFieldSet> $idFieldSet
      * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
+     * @param array<string,array<string|int,SplObjectStorage<FieldInterface,mixed>>> $previouslyResolvedIDFieldValues
+     * @param array<string|int,SplObjectStorage<FieldInterface,mixed>|null> $resolvedIDFieldValues
      */
     public function resolveDirective(
         RelationalTypeResolverInterface $relationalTypeResolver,
@@ -34,12 +37,10 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
     ): void {
         foreach ($idFieldSet as $id => $fieldSet) {
             foreach ($fieldSet->fields as $field) {
-                $fieldOutputKey = $field->getOutputKey();
-                $resolvedIDFieldValues[$id][$fieldOutputKey] = $this->transformValue(
-                    $resolvedIDFieldValues[$id][$fieldOutputKey],
+                $resolvedIDFieldValues[$id][$field] = $this->transformValue(
+                    $resolvedIDFieldValues[$id][$field],
                     $id,
                     $field,
-                    $fieldOutputKey,
                     $relationalTypeResolver,
                     $succeedingPipelineIDFieldSet,
                     $variables,
@@ -54,7 +55,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         mixed $value,
         string | int $id,
         FieldInterface $field,
-        string $fieldOutputKey,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         array &$variables,

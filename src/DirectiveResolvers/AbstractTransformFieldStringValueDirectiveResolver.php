@@ -25,7 +25,6 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         mixed $value,
         string | int $id,
         FieldInterface $field,
-        string $fieldOutputKey,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         array &$variables,
@@ -45,7 +44,6 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
                 $value,
                 $id,
                 $field,
-                $fieldOutputKey,
                 $relationalTypeResolver,
                 $succeedingPipelineIDFieldSet,
                 $engineIterationFeedbackStore,
@@ -58,20 +56,18 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
             $value,
             $id,
             $field,
-            $fieldOutputKey,
             $relationalTypeResolver,
             $variables,
             $messages,
         );
     }
 
-    abstract protected function transformStringValue(string $value, string | int $id, FieldInterface $field, string $fieldOutputKey, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages): string;
+    abstract protected function transformStringValue(string $value, string | int $id, FieldInterface $field, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages): string;
 
     protected function handleNonStringValue(
         mixed $value,
         string | int $id,
         FieldInterface $field,
-        string $fieldOutputKey,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
@@ -98,7 +94,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
                     FeedbackItemProvider::E1,
                     [
                         $this->getDirectiveName(),
-                        $fieldOutputKey,
+                        $field->getOutputKey(),
                         $id,
                     ]
                 ),
