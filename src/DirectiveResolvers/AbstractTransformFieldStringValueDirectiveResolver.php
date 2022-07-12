@@ -9,10 +9,9 @@ use PoP\ComponentModel\Module as ComponentModelModule;
 use PoP\ComponentModel\ModuleConfiguration as ComponentModelModuleConfiguration;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\Root\Feedback\FeedbackItemResolution;
-use PoP\ComponentModel\Feedback\ObjectFeedback;
+use PoP\ComponentModel\Feedback\ObjectResolutionFeedback;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
-use PoP\GraphQLParser\StaticHelpers\LocationHelper;
 use PoP\Root\App;
 use PoPSchema\DirectiveCommons\FeedbackItemProviders\FeedbackItemProvider;
 
@@ -72,15 +71,15 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         array &$succeedingPipelineIDFieldSet,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
+        /** @var array<string|int,EngineIterationFieldSet> */
+        $idFieldSetToRemove = [
+            $id => new EngineIterationFieldSet([$field]),
+        ];
+
         /** @var ComponentModelModuleConfiguration */
         $moduleConfiguration = App::getModule(ComponentModelModule::class)->getConfiguration();
         $removeFieldIfDirectiveFailed = $moduleConfiguration->removeFieldIfDirectiveFailed();
         if ($removeFieldIfDirectiveFailed) {
-            /** @var array<string|int,EngineIterationFieldSet> */
-            $idFieldSetToRemove = [
-                $id => new EngineIterationFieldSet(),
-            ];
-            $idFieldSetToRemove[$id]->fields[] = $field;
             $this->removeIDFieldSet(
                 $idFieldSetToRemove,
                 $succeedingPipelineIDFieldSet
@@ -88,7 +87,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         }
 
         $engineIterationFeedbackStore->objectFeedbackStore->addError(
-            new ObjectFeedback(
+            new ObjectResolutionFeedback(
                 new FeedbackItemResolution(
                     FeedbackItemProvider::class,
                     FeedbackItemProvider::E1,
@@ -98,11 +97,10 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
                         $id,
                     ]
                 ),
-                LocationHelper::getNonSpecificLocation(),
-                $relationalTypeResolver,
-                $field,
-                $id,
                 $this->directive,
+                $relationalTypeResolver,
+                $this->directive,
+                $idFieldSetToRemove
             )
         );
     }
