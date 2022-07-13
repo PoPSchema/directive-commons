@@ -57,7 +57,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
 
     abstract protected function transformValue(
         mixed $value,
-        string | int $id,
+        string|int $id,
         FieldInterface $field,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
