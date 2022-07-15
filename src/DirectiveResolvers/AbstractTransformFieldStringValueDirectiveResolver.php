@@ -86,8 +86,8 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         ];
 
         $this->removeIDFieldSet(
+            $succeedingPipelineIDFieldSet,
             $idFieldSetToRemove,
-            $succeedingPipelineIDFieldSet
         );
         $this->setFailingFieldResponseAsNull(
             $resolvedIDFieldValues,
