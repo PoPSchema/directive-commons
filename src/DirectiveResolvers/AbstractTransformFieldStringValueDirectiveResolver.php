@@ -5,27 +5,30 @@ declare(strict_types=1);
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
 use PoP\ComponentModel\Engine\EngineIterationFieldSet;
-use PoP\ComponentModel\Module as ComponentModelModule;
-use PoP\ComponentModel\ModuleConfiguration as ComponentModelModuleConfiguration;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
-use PoP\Root\Feedback\FeedbackItemResolution;
 use PoP\ComponentModel\Feedback\ObjectResolutionFeedback;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
-use PoP\Root\App;
+use PoP\Root\Feedback\FeedbackItemResolution;
 use PoPSchema\DirectiveCommons\FeedbackItemProviders\FeedbackItemProvider;
+use SplObjectStorage;
 
 /**
  * Apply a transformation to the string
  */
 abstract class AbstractTransformFieldStringValueDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
 {
+    /**
+     * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
+     * @param array<string|int,SplObjectStorage<FieldInterface,mixed>> $resolvedIDFieldValues
+     */
     final protected function transformValue(
         mixed $value,
         string|int $id,
         FieldInterface $field,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
+        array &$resolvedIDFieldValues,
         array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
@@ -45,6 +48,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
                 $field,
                 $relationalTypeResolver,
                 $succeedingPipelineIDFieldSet,
+                $resolvedIDFieldValues,
                 $engineIterationFeedbackStore,
             );
             return null;
@@ -63,12 +67,17 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
 
     abstract protected function transformStringValue(string $value, string|int $id, FieldInterface $field, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages): string;
 
+    /**
+     * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
+     * @param array<string|int,SplObjectStorage<FieldInterface,mixed>> $resolvedIDFieldValues
+     */
     protected function handleNonStringValue(
         mixed $value,
         string|int $id,
         FieldInterface $field,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
+        array &$resolvedIDFieldValues,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
         /** @var array<string|int,EngineIterationFieldSet> */
@@ -76,15 +85,14 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
             $id => new EngineIterationFieldSet([$field]),
         ];
 
-        /** @var ComponentModelModuleConfiguration */
-        $moduleConfiguration = App::getModule(ComponentModelModule::class)->getConfiguration();
-        $removeFieldIfDirectiveFailed = $moduleConfiguration->removeFieldIfDirectiveFailed();
-        if ($removeFieldIfDirectiveFailed) {
-            $this->removeIDFieldSet(
-                $idFieldSetToRemove,
-                $succeedingPipelineIDFieldSet
-            );
-        }
+        $this->removeIDFieldSet(
+            $idFieldSetToRemove,
+            $succeedingPipelineIDFieldSet
+        );
+        $this->setFailingFieldResponseAsNull(
+            $resolvedIDFieldValues,
+            $idFieldSetToRemove,
+        );
 
         $engineIterationFeedbackStore->objectFeedbackStore->addError(
             new ObjectResolutionFeedback(

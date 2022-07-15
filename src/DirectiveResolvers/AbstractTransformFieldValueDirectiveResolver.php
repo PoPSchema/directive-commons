@@ -47,6 +47,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
                     $field,
                     $relationalTypeResolver,
                     $succeedingPipelineIDFieldSet,
+                    $resolvedIDFieldValues,
                     $variables,
                     $messages,
                     $engineIterationFeedbackStore,
@@ -55,12 +56,17 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         }
     }
 
+    /**
+     * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
+     * @param array<string|int,SplObjectStorage<FieldInterface,mixed>> $resolvedIDFieldValues
+     */
     abstract protected function transformValue(
         mixed $value,
         string|int $id,
         FieldInterface $field,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
+        array &$resolvedIDFieldValues,
         array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
