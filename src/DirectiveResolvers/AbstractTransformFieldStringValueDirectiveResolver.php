@@ -29,7 +29,6 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         array &$resolvedIDFieldValues,
-        array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): mixed {
@@ -60,12 +59,11 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
             $id,
             $field,
             $relationalTypeResolver,
-            $variables,
             $messages,
         );
     }
 
-    abstract protected function transformStringValue(string $value, string|int $id, FieldInterface $field, RelationalTypeResolverInterface $relationalTypeResolver, array &$variables, array &$messages): string;
+    abstract protected function transformStringValue(string $value, string|int $id, FieldInterface $field, RelationalTypeResolverInterface $relationalTypeResolver, array &$messages): string;
 
     /**
      * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet

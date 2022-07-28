@@ -35,7 +35,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         array &$succeedingPipelineIDFieldSet,
         array &$succeedingPipelineFieldDataAccessProviders,
         array &$resolvedIDFieldValues,
-        array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
@@ -48,7 +47,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
                     $relationalTypeResolver,
                     $succeedingPipelineIDFieldSet,
                     $resolvedIDFieldValues,
-                    $variables,
                     $messages,
                     $engineIterationFeedbackStore,
                 );
@@ -67,7 +65,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         array &$resolvedIDFieldValues,
-        array &$variables,
         array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): mixed;
