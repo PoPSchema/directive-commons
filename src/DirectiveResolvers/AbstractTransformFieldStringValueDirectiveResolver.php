@@ -29,7 +29,6 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         array &$resolvedIDFieldValues,
-        array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): mixed {
         // null => Nothing to do
@@ -59,11 +58,10 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
             $id,
             $field,
             $relationalTypeResolver,
-            $messages,
         );
     }
 
-    abstract protected function transformStringValue(string $value, string|int $id, FieldInterface $field, RelationalTypeResolverInterface $relationalTypeResolver, array &$messages): string;
+    abstract protected function transformStringValue(string $value, string|int $id, FieldInterface $field, RelationalTypeResolverInterface $relationalTypeResolver): string;
 
     /**
      * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
@@ -92,7 +90,7 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
             $idFieldSetToRemove,
         );
 
-        $engineIterationFeedbackStore->objectFeedbackStore->addError(
+        $engineIterationFeedbackStore->objectResolutionFeedbackStore->addError(
             new ObjectResolutionFeedback(
                 new FeedbackItemResolution(
                     FeedbackItemProvider::class,

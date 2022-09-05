@@ -10,6 +10,8 @@ use PoP\ComponentModel\Feedback\FeedbackCategories;
 class FeedbackItemProvider extends AbstractFeedbackItemProvider
 {
     public final const E1 = 'e1';
+    public final const W1 = 'w1';
+    public final const W2 = 'w2';
 
     /**
      * @return string[]
@@ -18,6 +20,8 @@ class FeedbackItemProvider extends AbstractFeedbackItemProvider
     {
         return [
             self::E1,
+            self::W1,
+            self::W2,
         ];
     }
 
@@ -25,6 +29,8 @@ class FeedbackItemProvider extends AbstractFeedbackItemProvider
     {
         return match ($code) {
             self::E1 => $this->__('Directive \'%s\' from field \'%s\' cannot be applied on object with ID \'%s\' because it is not a string', 'directives-commons'),
+            self::W1 => $this->__('Dynamic variable with name \'%s\' had already been set, had its value overridden', 'export-directive'),
+            self::W2 => $this->__('Dynamic variable with name \'%s\' had already been set for object with ID \'%s\', had its value overridden', 'export-directive'),
             default => parent::getMessagePlaceholder($code),
         };
     }
@@ -32,8 +38,13 @@ class FeedbackItemProvider extends AbstractFeedbackItemProvider
     public function getCategory(string $code): string
     {
         return match ($code) {
-            self::E1 => FeedbackCategories::ERROR,
-            default => parent::getCategory($code),
+            self::E1
+                => FeedbackCategories::ERROR,
+            self::W1,
+            self::W2
+                => FeedbackCategories::WARNING,
+            default
+                => parent::getCategory($code),
         };
     }
 }

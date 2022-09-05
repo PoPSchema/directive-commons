@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
+use PoP\ComponentModel\DirectiveResolvers\DirectiveResolverInterface;
 use PoP\ComponentModel\QueryResolution\FieldDataAccessProviderInterface;
 use PoP\ComponentModel\DirectiveResolvers\AbstractDirectiveResolver;
 use PoP\ComponentModel\Engine\EngineIterationFieldSet;
@@ -23,6 +24,10 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
      * @param array<FieldDataAccessProviderInterface> $succeedingPipelineFieldDataAccessProviders
      * @param array<string,array<string|int,SplObjectStorage<FieldInterface,mixed>>> $previouslyResolvedIDFieldValues
      * @param array<string|int,SplObjectStorage<FieldInterface,mixed>> $resolvedIDFieldValues
+     * @param array<DirectiveResolverInterface> $succeedingPipelineDirectiveResolvers
+     * @param array<string|int,object> $idObjects
+     * @param array<string,array<string|int,SplObjectStorage<FieldInterface,array<string|int>>>> $unionTypeOutputKeyIDs
+     * @param array<string,mixed> $messages
      */
     public function resolveDirective(
         RelationalTypeResolverInterface $relationalTypeResolver,
@@ -47,7 +52,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
                     $relationalTypeResolver,
                     $succeedingPipelineIDFieldSet,
                     $resolvedIDFieldValues,
-                    $messages,
                     $engineIterationFeedbackStore,
                 );
             }
@@ -65,7 +69,6 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         array &$resolvedIDFieldValues,
-        array &$messages,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): mixed;
 }
