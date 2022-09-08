@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
+use PoPSchema\DirectiveCommons\FeedbackItemProviders\FeedbackItemProvider;
 use PoP\ComponentModel\Engine\EngineIterationFieldSet;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\Feedback\ObjectResolutionFeedback;
+use PoP\ComponentModel\TypeResolvers\ConcreteTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
+use PoP\ComponentModel\TypeResolvers\ScalarType\AnyBuiltInScalarScalarTypeResolver;
+use PoP\ComponentModel\TypeResolvers\ScalarType\IDScalarTypeResolver;
+use PoP\ComponentModel\TypeResolvers\ScalarType\StringScalarTypeResolver;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
 use PoP\Root\Feedback\FeedbackItemResolution;
-use PoPSchema\DirectiveCommons\FeedbackItemProviders\FeedbackItemProvider;
 use SplObjectStorage;
 
 /**
@@ -107,5 +111,17 @@ abstract class AbstractTransformFieldStringValueDirectiveResolver extends Abstra
                 $idFieldSetToRemove
             )
         );
+    }
+
+    /**
+     * @return array<class-string<ConcreteTypeResolverInterface>>|null
+     */
+    protected function getSupportedFieldTypeResolverClasses(): ?array
+    {
+        return [
+            StringScalarTypeResolver::class,
+            IDScalarTypeResolver::class,
+            AnyBuiltInScalarScalarTypeResolver::class,
+        ];
     }
 }
