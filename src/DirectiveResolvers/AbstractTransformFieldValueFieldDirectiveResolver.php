@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
-use PoP\ComponentModel\DirectiveResolvers\DirectiveResolverInterface;
+use PoP\ComponentModel\DirectiveResolvers\FieldDirectiveResolverInterface;
 use PoP\ComponentModel\QueryResolution\FieldDataAccessProviderInterface;
-use PoP\ComponentModel\DirectiveResolvers\AbstractDirectiveResolver;
+use PoP\ComponentModel\DirectiveResolvers\AbstractFieldDirectiveResolver;
 use PoP\ComponentModel\Engine\EngineIterationFieldSet;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
@@ -16,7 +16,7 @@ use SplObjectStorage;
 /**
  * Apply a transformation to the string
  */
-abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDirectiveResolver
+abstract class AbstractTransformFieldValueFieldDirectiveResolver extends AbstractFieldDirectiveResolver
 {
     /**
      * @param array<string|int,EngineIterationFieldSet> $idFieldSet
@@ -24,7 +24,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
      * @param array<FieldDataAccessProviderInterface> $succeedingPipelineFieldDataAccessProviders
      * @param array<string,array<string|int,SplObjectStorage<FieldInterface,mixed>>> $previouslyResolvedIDFieldValues
      * @param array<string|int,SplObjectStorage<FieldInterface,mixed>> $resolvedIDFieldValues
-     * @param array<DirectiveResolverInterface> $succeedingPipelineDirectiveResolvers
+     * @param array<FieldDirectiveResolverInterface> $succeedingPipelineFieldDirectiveResolvers
      * @param array<string|int,object> $idObjects
      * @param array<string,array<string|int,SplObjectStorage<FieldInterface,array<string|int>>>> $unionTypeOutputKeyIDs
      * @param array<string,mixed> $messages
@@ -33,7 +33,7 @@ abstract class AbstractTransformFieldValueDirectiveResolver extends AbstractDire
         RelationalTypeResolverInterface $relationalTypeResolver,
         array $idFieldSet,
         FieldDataAccessProviderInterface $fieldDataAccessProvider,
-        array $succeedingPipelineDirectiveResolvers,
+        array $succeedingPipelineFieldDirectiveResolvers,
         array $idObjects,
         array $unionTypeOutputKeyIDs,
         array $previouslyResolvedIDFieldValues,

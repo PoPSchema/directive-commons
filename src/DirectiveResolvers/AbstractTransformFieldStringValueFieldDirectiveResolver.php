@@ -20,7 +20,7 @@ use SplObjectStorage;
 /**
  * Apply a transformation to the string
  */
-abstract class AbstractTransformFieldStringValueDirectiveResolver extends AbstractTransformFieldValueDirectiveResolver
+abstract class AbstractTransformFieldStringValueFieldDirectiveResolver extends AbstractTransformFieldValueFieldDirectiveResolver
 {
     /**
      * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
