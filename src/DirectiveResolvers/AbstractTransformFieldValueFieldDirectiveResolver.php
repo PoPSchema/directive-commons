@@ -6,7 +6,7 @@ namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
 use PoP\ComponentModel\DirectiveResolvers\FieldDirectiveResolverInterface;
 use PoP\ComponentModel\QueryResolution\FieldDataAccessProviderInterface;
-use PoP\ComponentModel\DirectiveResolvers\AbstractFieldDirectiveResolver;
+use PoP\Engine\DirectiveResolvers\AbstractFieldDirectiveResolver;
 use PoP\ComponentModel\Engine\EngineIterationFieldSet;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
