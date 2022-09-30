@@ -12,7 +12,7 @@
         "pop-cms-schema-pro/event-mutations": "<0.8.10",
         "pop-cms-schema-pro/events-wp-em": "<0.8.10",
         "pop-cms-schema-pro/locations": "<0.8.10",
-        "pop-schema-pro/convert-case-directives": "<0.8.10",
+        "pop-schema-pro/function-directives": "<0.8.10",
         "pop-cms-schema-pro/events": "<0.8.10",
         "pop-schema-pro/cdn-directive": "<0.8.10",
         "graphql-by-pop-pro/remove-directive": "<0.8.10",
