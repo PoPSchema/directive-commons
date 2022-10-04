@@ -13,9 +13,6 @@ use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
 use SplObjectStorage;
 
-/**
- * Apply a transformation to the string
- */
 abstract class AbstractTransformFieldValueFieldDirectiveResolver extends AbstractFieldDirectiveResolver
 {
     /**

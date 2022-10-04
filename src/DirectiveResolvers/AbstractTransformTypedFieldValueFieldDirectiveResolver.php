@@ -5,22 +5,17 @@ declare(strict_types=1);
 namespace PoPSchema\DirectiveCommons\DirectiveResolvers;
 
 use PoPSchema\DirectiveCommons\FeedbackItemProviders\FeedbackItemProvider;
+use PoPSchema\DirectiveCommons\ObjectModels\TypedDataValidationPayload;
 use PoP\ComponentModel\Engine\EngineIterationFieldSet;
 use PoP\ComponentModel\Feedback\EngineIterationFeedbackStore;
 use PoP\ComponentModel\Feedback\ObjectResolutionFeedback;
-use PoP\ComponentModel\TypeResolvers\ConcreteTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
-use PoP\ComponentModel\TypeResolvers\ScalarType\AnyBuiltInScalarScalarTypeResolver;
-use PoP\ComponentModel\TypeResolvers\ScalarType\IDScalarTypeResolver;
-use PoP\ComponentModel\TypeResolvers\ScalarType\StringScalarTypeResolver;
+use PoP\GraphQLParser\Spec\Parser\Ast\AstInterface;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
 use PoP\Root\Feedback\FeedbackItemResolution;
 use SplObjectStorage;
 
-/**
- * Apply a transformation to the string
- */
-abstract class AbstractTransformFieldStringValueFieldDirectiveResolver extends AbstractTransformFieldValueFieldDirectiveResolver
+abstract class AbstractTransformTypedFieldValueFieldDirectiveResolver extends AbstractTransformFieldValueFieldDirectiveResolver
 {
     /**
      * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
@@ -35,49 +30,82 @@ abstract class AbstractTransformFieldStringValueFieldDirectiveResolver extends A
         array &$resolvedIDFieldValues,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): mixed {
-        // null => Nothing to do
-        if ($value === null) {
+        if (
+            $value === null
+            && $this->skipNullValue()
+        ) {
             return null;
         }
 
-        /**
-         * Validate it is a string
-         */
-        if (!is_string($value)) {
-            $this->handleNonStringValue(
+        if (!$this->isMatchingType($value)) {
+            $this->handleError(
                 $value,
                 $id,
                 $field,
                 $relationalTypeResolver,
                 $succeedingPipelineIDFieldSet,
                 $resolvedIDFieldValues,
+                $this->getNonMatchingTypeValueFeedbackItemResolution(
+                    $value,
+                    $id,
+                    $field,
+                    $relationalTypeResolver,
+                ),
+                $this->directive,
                 $engineIterationFeedbackStore,
             );
             return null;
         }
 
-        /** @var string $value */
-        return $this->transformStringValue(
-            $value,
-            $id,
-            $field,
-            $relationalTypeResolver,
-        );
+        $typedDataValidationPayload = $this->validateTypeData($value);
+        if ($typedDataValidationPayload !== null) {
+            $this->handleError(
+                $value,
+                $id,
+                $field,
+                $relationalTypeResolver,
+                $succeedingPipelineIDFieldSet,
+                $resolvedIDFieldValues,
+                $typedDataValidationPayload->feedbackItemResolution,
+                $typedDataValidationPayload->astNode ?? $this->directive,
+                $engineIterationFeedbackStore,
+            );
+            return null;
+        }
+
+        return $this->transformTypeValue($value);
     }
 
-    abstract protected function transformStringValue(string $value, string|int $id, FieldInterface $field, RelationalTypeResolverInterface $relationalTypeResolver): string;
+    protected function skipNullValue(): bool
+    {
+        return true;
+    }
+
+    abstract protected function isMatchingType(mixed $value): bool;
+
+    /**
+     * Validate the value against the directive args
+     */
+    protected function validateTypeData(mixed $value): ?TypedDataValidationPayload
+    {
+        return null;
+    }
+
+    abstract protected function transformTypeValue(mixed $value): mixed;
 
     /**
      * @param array<array<string|int,EngineIterationFieldSet>> $succeedingPipelineIDFieldSet
      * @param array<string|int,SplObjectStorage<FieldInterface,mixed>> $resolvedIDFieldValues
      */
-    protected function handleNonStringValue(
+    private function handleError(
         mixed $value,
         string|int $id,
         FieldInterface $field,
         RelationalTypeResolverInterface $relationalTypeResolver,
         array &$succeedingPipelineIDFieldSet,
         array &$resolvedIDFieldValues,
+        FeedbackItemResolution $feedbackItemResolution,
+        AstInterface $astNode,
         EngineIterationFeedbackStore $engineIterationFeedbackStore,
     ): void {
         /** @var array<string|int,EngineIterationFieldSet> */
@@ -96,16 +124,8 @@ abstract class AbstractTransformFieldStringValueFieldDirectiveResolver extends A
 
         $engineIterationFeedbackStore->objectResolutionFeedbackStore->addError(
             new ObjectResolutionFeedback(
-                new FeedbackItemResolution(
-                    FeedbackItemProvider::class,
-                    FeedbackItemProvider::E1,
-                    [
-                        $this->getDirectiveName(),
-                        $field->getOutputKey(),
-                        $id,
-                    ]
-                ),
-                $this->directive,
+                $feedbackItemResolution,
+                $astNode,
                 $relationalTypeResolver,
                 $this->directive,
                 $idFieldSetToRemove
@@ -113,15 +133,20 @@ abstract class AbstractTransformFieldStringValueFieldDirectiveResolver extends A
         );
     }
 
-    /**
-     * @return array<class-string<ConcreteTypeResolverInterface>>|null
-     */
-    protected function getSupportedFieldTypeResolverClasses(): ?array
-    {
-        return [
-            StringScalarTypeResolver::class,
-            IDScalarTypeResolver::class,
-            AnyBuiltInScalarScalarTypeResolver::class,
-        ];
+    protected function getNonMatchingTypeValueFeedbackItemResolution(
+        mixed $value,
+        string|int $id,
+        FieldInterface $field,
+        RelationalTypeResolverInterface $relationalTypeResolver,
+    ): FeedbackItemResolution {
+        return new FeedbackItemResolution(
+            FeedbackItemProvider::class,
+            FeedbackItemProvider::E1,
+            [
+                $this->getDirectiveName(),
+                $field->getOutputKey(),
+                $id,
+            ]
+        );
     }
 }
