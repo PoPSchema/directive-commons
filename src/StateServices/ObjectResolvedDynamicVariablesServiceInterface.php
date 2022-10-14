@@ -37,7 +37,7 @@ interface ObjectResolvedDynamicVariablesServiceInterface
 
     /**
      * Duplicate all the dynamic variables for one Field into
-     * another Field. It is used by @underJSONObjectNestedProperty
+     * another Field. It is used by @underJSONObjectProperty
      * to have the "advanced" Field have access to all state
      * set by the underlying Fieldl
      */
