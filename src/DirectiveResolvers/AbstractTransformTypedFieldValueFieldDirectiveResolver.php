@@ -117,7 +117,7 @@ abstract class AbstractTransformTypedFieldValueFieldDirectiveResolver extends Ab
             $succeedingPipelineIDFieldSet,
             $idFieldSetToRemove,
         );
-        $this->setFailingFieldResponseAsNull(
+        $this->setFieldResponseValueAsNull(
             $resolvedIDFieldValues,
             $idFieldSetToRemove,
         );
