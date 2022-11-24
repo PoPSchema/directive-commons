@@ -10,7 +10,7 @@ use PoP\ComponentModel\TypeResolvers\ConcreteTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\ScalarType\AnyBuiltInScalarScalarTypeResolver;
 use PoP\ComponentModel\TypeResolvers\ScalarType\IntScalarTypeResolver;
-use PoP\Engine\TypeResolvers\ScalarType\NumericScalarTypeResolver;
+use PoPSchema\SchemaCommons\TypeResolvers\ScalarType\NumericScalarTypeResolver;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
 use PoP\Root\Feedback\FeedbackItemResolution;
 
@@ -41,7 +41,7 @@ abstract class AbstractTransformIntegerFieldValueFieldDirectiveResolver extends 
         return $this->transformIntValue($value);
     }
 
-    abstract function transformIntValue(int $value): int;
+    abstract protected function transformIntValue(int $value): int;
 
     /**
      * Validate the value against the directive args

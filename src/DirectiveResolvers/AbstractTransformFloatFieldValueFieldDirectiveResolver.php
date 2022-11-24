@@ -10,7 +10,7 @@ use PoP\ComponentModel\TypeResolvers\ConcreteTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\RelationalTypeResolverInterface;
 use PoP\ComponentModel\TypeResolvers\ScalarType\AnyBuiltInScalarScalarTypeResolver;
 use PoP\ComponentModel\TypeResolvers\ScalarType\FloatScalarTypeResolver;
-use PoP\Engine\TypeResolvers\ScalarType\NumericScalarTypeResolver;
+use PoPSchema\SchemaCommons\TypeResolvers\ScalarType\NumericScalarTypeResolver;
 use PoP\GraphQLParser\Spec\Parser\Ast\FieldInterface;
 use PoP\Root\Feedback\FeedbackItemResolution;
 
@@ -41,7 +41,7 @@ abstract class AbstractTransformFloatFieldValueFieldDirectiveResolver extends Ab
         return $this->transformFloatValue($value);
     }
 
-    abstract function transformFloatValue(float $value): float;
+    abstract protected function transformFloatValue(float $value): float;
 
     /**
      * Validate the value against the directive args
