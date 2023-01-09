@@ -16,7 +16,6 @@
         "pop-cms-schema-pro/events": "<0.8.10",
         "pop-schema-pro/cdn-directive": "<0.8.10",
         "graphql-by-pop-pro/remove-directive": "<0.8.10",
-        "graphql-by-pop-pro/global-id-field": "<0.8.10",
         "graphql-by-pop-pro/export-directive": "<0.8.10",
         "graphql-api-pro/schema-feedback": "<0.8.10",
         "graphql-api-pro/graphql-api-pro": "<0.8.10",
