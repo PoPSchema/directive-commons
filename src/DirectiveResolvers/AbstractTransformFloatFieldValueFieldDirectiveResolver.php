@@ -30,15 +30,15 @@ abstract class AbstractTransformFloatFieldValueFieldDirectiveResolver extends Ab
 
     protected function isMatchingType(mixed $value): bool
     {
-        return is_float($value);
+        return is_float($value) || is_integer($value);
     }
 
     /**
-     * @param float $value
+     * @param float|int $value
      */
     final protected function transformTypeValue(mixed $value): mixed
     {
-        return $this->transformFloatValue($value);
+        return $this->transformFloatValue((float) $value);
     }
 
     abstract protected function transformFloatValue(float $value): float;
@@ -46,11 +46,11 @@ abstract class AbstractTransformFloatFieldValueFieldDirectiveResolver extends Ab
     /**
      * Validate the value against the directive args
      *
-     * @param float $value
+     * @param float|int $value
      */
     final protected function validateTypeData(mixed $value): ?TypedDataValidationPayload
     {
-        return $this->validateFloatData($value);
+        return $this->validateFloatData((float) $value);
     }
 
     protected function validateFloatData(float $value): ?TypedDataValidationPayload
