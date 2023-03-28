@@ -180,7 +180,7 @@
         "phpunit-for-graphql-api/graphql-api-pro": "<0.10.2",
         "graphql-by-pop-pro/pass-onwards-directive": "<0.10.2",
         "graphql-by-pop-pro/depends-on-operations-directive": "<0.10.2",
-        "pop-schema-pro/http-requests": "<0.10.2",
+        "pop-schema-pro/send-http-requests": "<0.10.2",
         "pop-schema-pro/environment-fields": "<0.10.2",
         "pop-schema-pro/apply-field-directive": "<0.10.2",
         "pop-schema-pro/function-fields": "<0.10.2",
