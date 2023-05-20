@@ -185,7 +185,7 @@
         "pop-schema-pro/apply-field-directive": "<0.10.2",
         "pop-schema-pro/function-fields": "<0.10.2",
         "pop-schema-pro/disable-access-access-control": "<0.10.2",
-        "pop-schema-pro/extended-schema-commons": "<0.10.2",
+        "pop-schema/extended-schema-commons": "<0.10.2",
         "pop-backbone/wp-data-parser": "<0.10.2",
         "pop-backbone/php-hooks": "<0.10.2",
         "pop-cms-schema/pagemedia-mutations": "<0.10.2",
